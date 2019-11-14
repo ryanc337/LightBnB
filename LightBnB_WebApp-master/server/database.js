@@ -36,6 +36,13 @@ const addUser = function (user) {
   .then(res => res.rows[0] || null);
 };
 
-module.exports = { getAllProperties, getUserWithEmail, getUserWithId, addUser }
+const getAllReservations = function(guest_id, limit = 10) {
+  return pool.query(`SELECT * FROM  reservations
+  WHERE guest_id = $1
+  LIMIT $2`, [guest_id, limit])
+  .then(res => res.rows[0] || null);
+};
+
+module.exports = { getAllProperties, getUserWithEmail, getUserWithId, addUser, getAllReservations }
 
 
